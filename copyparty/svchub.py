@@ -255,6 +255,12 @@ class SvcHub(object):
             Daemon(self.start_ftpd, "start_ftpd")
             zms += "f" if args.ftp else "F"
 
+        if args.dns:
+            from .dnsd import Dnsd
+            self.dnsd: Optional[Dnsd] = None
+            Daemon(self.start_dnsd, "start_dnsd")
+            zms += "dns"
+
         if args.smb:
             # impacket.dcerpc is noisy about listen timeouts
             sto = socket.getdefaulttimeout()
@@ -288,6 +294,25 @@ class SvcHub(object):
             return
 
         self.restart_ftpd()
+
+    def start_dnsd(self) -> None:
+        time.sleep(5)
+        if self.dnsd:
+            return
+
+        self.restart_dnsd()
+
+    def restart_dnsd(self) -> None:
+        if not hasattr(self, "dnsd"):
+            return
+
+        from .dnsd import Dnsd
+
+        if self.dnsd:
+            return  # todo
+
+        self.dnsd = Dnsd(self)
+        self.log("root", "started DNSd")
 
     def restart_ftpd(self) -> None:
         if not hasattr(self, "ftpd"):

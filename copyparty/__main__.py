@@ -920,6 +920,11 @@ def add_ftp(ap):
     ap2.add_argument("--ftp-pr", metavar="P-P", type=u, help="the range of TCP ports to use for passive connections, for example \033[32m12000-13000")
 
 
+def add_dns(ap):
+    ap2 = ap.add_argument_group('DNS options')
+    ap2.add_argument("--dns", metavar="PORT", type=int, help="enable DNS server on PORT, for example \033[32m42069")
+
+
 def add_webdav(ap):
     ap2 = ap.add_argument_group('WebDAV options')
     ap2.add_argument("--daw", action="store_true", help="enable full write support, even if client may not be webdav. \033[1;31mWARNING:\033[0m This has side-effects -- PUT-operations will now \033[1;31mOVERWRITE\033[0m existing files, rather than inventing new filenames to avoid loss of data. You might want to instead set this as a volflag where needed. By not setting this flag, uploaded files can get written to a filename which the client does not expect (which might be okay, depending on client)")
@@ -1211,6 +1216,7 @@ def run_argparse(
     add_thumbnail(ap)
     add_transcoding(ap)
     add_ftp(ap)
+    add_dns(ap)
     add_webdav(ap)
     add_smb(ap)
     add_safety(ap)
