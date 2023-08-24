@@ -311,7 +311,7 @@ class SvcHub(object):
         if self.dnsd:
             return  # todo
 
-        self.dnsd = Dnsd(self)
+        self.dnsd = Dnsd(hub=self)
         self.log("root", "started DNSd")
 
     def restart_ftpd(self) -> None:

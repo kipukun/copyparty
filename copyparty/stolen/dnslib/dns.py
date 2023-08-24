@@ -33,7 +33,7 @@ def unknown_qtype(name, key, forward):
 
 QTYPE = Bimap(
     "QTYPE",
-    {1: "A", 12: "PTR", 16: "TXT", 28: "AAAA", 33: "SRV", 47: "NSEC", 255: "ANY"},
+    {1: "A", 2: "NS", 5: "CNAME", 12: "PTR", 16: "TXT", 28: "AAAA", 33: "SRV", 47: "NSEC", 255: "ANY"},
     unknown_qtype,
 )
 
